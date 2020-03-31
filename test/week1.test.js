@@ -42,16 +42,20 @@ describe("generateInitials", () => {
   test("returns the initials of a firstname and surname", () => {
     expect(generateInitials("Frederic", "Bonneville")).toBe("F.B");
   });
+
   test("returns initials even when one is a numerical digit within a string", () => {
     expect(generateInitials("2001", "Jones")).toBe("2.J");
   });
+
   test("returns capitalised initials when names are lower case", () => {
     expect(generateInitials("fred", "bonneville")).toBe("F.B");
   });
+
   test("throws error when either name is not a string", () => {
     expect(() => generateInitials(23, "the best")).toThrowError("firstName must be a string");
     expect(() => generateInitials("hello", false)).toThrowError("lastName must be a string");
   });
+
   test("throws an error when either name is not provided", () => {
     expect(() => generateInitials("", "Jones")).toThrowError("firstName must be provided");
     expect(() => generateInitials("Steve", "")).toThrowError("lastName must be provided");
@@ -84,25 +88,38 @@ describe("addVAT", () => {
   });
 });
 
-xdescribe("getSalePrice", () => {
+describe("getSalePrice", () => {
   test("reduces a price of 100 by 50%", () => {
-    expect(getSalePrice(100, 50)).toBe(50);
+    expect(getSalePrice(100, 50)).toBeCloseTo(50);
   });
 
   test("reduces a price of 100 by 33.3%", () => {
-    expect(getSalePrice(100, 33.3)).toBe(66.7);
+    expect(getSalePrice(100, 33.3)).toBeCloseTo(66.7);
   });
 
   test("reduces a price of 79.99 by 15%", () => {
-    expect(getSalePrice(79.99, 15)).toBe(67.99);
+    expect(getSalePrice(79.99, 15)).toBeCloseTo(67.99);
   });
 
   test("reduces a price of 50 by 0%", () => {
-    expect(getSalePrice(50, 0)).toBe(50);
+    expect(getSalePrice(50, 0)).toBeCloseTo(50);
+  });
+
+  test("reduces a price of 0 by 40%", () => {
+    expect(getSalePrice(0, 40)).toBeCloseTo(0);
+  });
+
+  test("throws error if original price not given", () => {
+    expect(() => getSalePrice(undefined,50)).toThrowError("originalPrice is required");
+  });
+
+  test("throws error if reduction rate is not given", () => {
+    expect(() => getSalePrice(44,undefined)).toThrowError("reduction is required");
   });
 });
 
-xdescribe("getMiddleCharacter", () => {
+//Add edge case tests here
+describe("getMiddleCharacter", () => {
   test("returns the middle character from a string of odd length", () => {
     expect(getMiddleCharacter("bears!!!!")).toBe("s");
   });

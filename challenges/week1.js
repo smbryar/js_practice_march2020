@@ -21,12 +21,18 @@ function addVAT(originalPrice, vatRate) {
 function getSalePrice(originalPrice, reduction) {
   if (originalPrice === undefined) throw new Error("originalPrice is required");
   if (reduction === undefined) throw new Error("reduction is required");
-  // Add your code here!
+  return originalPrice - originalPrice * reduction/100;
 }
 
 function getMiddleCharacter(str) {
   if (str === undefined) throw new Error("str is required");
-  // Add your code here!
+    let midChar = Math.floor(str.length/2);
+  if (str.length % 2 === 0) {
+    return str[midChar - 1] + str[midChar];
+  }
+  else {
+    return str[midChar];
+  }
 }
 
 function reverseWord(word) {
