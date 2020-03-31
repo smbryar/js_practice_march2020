@@ -38,9 +38,23 @@ describe("capitalize", () => {
   });
 });
 
-xdescribe("generateInitials", () => {
+describe("generateInitials", () => {
   test("returns the initials of a firstname and surname", () => {
     expect(generateInitials("Frederic", "Bonneville")).toBe("F.B");
+  });
+  test("returns initials even when one is a numerical digit within a string", () => {
+    expect(generateInitials("2001", "Jones")).toBe("2.J");
+  });
+  test("returns capitalised initials when names are lower case", () => {
+    expect(generateInitials("fred","bonneville")).toBe("F.B");
+  });
+  test("throws error when either name is not a string", () => {
+    expect(() => generateInitials(23,"the best")).toThrowError("firstName must be a string");
+    expect(() => generateInitials("hello",false)).toThrowError("lastName must be a string");
+  });
+  test("throws an error when either name is not provided", () => {
+    expect(() => generateInitials("","Jones")).toThrowError("firstName must be provided");
+    expect(() => generateInitials("Steve","")).toThrowError("lastName must be provided");
   });
 });
 
