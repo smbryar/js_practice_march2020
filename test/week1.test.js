@@ -46,33 +46,41 @@ describe("generateInitials", () => {
     expect(generateInitials("2001", "Jones")).toBe("2.J");
   });
   test("returns capitalised initials when names are lower case", () => {
-    expect(generateInitials("fred","bonneville")).toBe("F.B");
+    expect(generateInitials("fred", "bonneville")).toBe("F.B");
   });
   test("throws error when either name is not a string", () => {
-    expect(() => generateInitials(23,"the best")).toThrowError("firstName must be a string");
-    expect(() => generateInitials("hello",false)).toThrowError("lastName must be a string");
+    expect(() => generateInitials(23, "the best")).toThrowError("firstName must be a string");
+    expect(() => generateInitials("hello", false)).toThrowError("lastName must be a string");
   });
   test("throws an error when either name is not provided", () => {
-    expect(() => generateInitials("","Jones")).toThrowError("firstName must be provided");
-    expect(() => generateInitials("Steve","")).toThrowError("lastName must be provided");
+    expect(() => generateInitials("", "Jones")).toThrowError("firstName must be provided");
+    expect(() => generateInitials("Steve", "")).toThrowError("lastName must be provided");
   });
 });
 
-xdescribe("addVAT", () => {
+describe("addVAT", () => {
   test("adds a VAT of 20% to a price of 100", () => {
-    expect(addVAT(100, 20)).toBe(120);
+    expect(addVAT(100, 20)).toBeCloseTo(120);
   });
 
   test("adds a VAT of 17.5% to a price of 40", () => {
-    expect(addVAT(40, 17.5)).toBe(47);
+    expect(addVAT(40, 17.5)).toBeCloseTo(47);
   });
 
   test("adds a VAT of 17.5% to a price of 33.50", () => {
-    expect(addVAT(33.5, 17.5)).toBe(39.36);
+    expect(addVAT(33.5, 17.5)).toBeCloseTo(39.36); //using "toBeCloseTo" because of rounding errors in javascript
   });
 
   test("adds a VAT of 0% to a price of 25", () => {
-    expect(addVAT(25, 0)).toBe(25);
+    expect(addVAT(25, 0)).toBeCloseTo(25);
+  });
+
+  test("throw error if originalPrice not given", () => {
+    expect(() => addVAT(undefined, 20)).toThrowError("originalPrice is required");
+  });
+
+  test("throw error if vatRate not given", () => {
+    expect(() => addVAT(100, undefined)).toThrowError("vatRate is required");
   });
 });
 
