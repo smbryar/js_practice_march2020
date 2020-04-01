@@ -1,3 +1,7 @@
+function roundDecPlace(num, decimalPlace) {
+  return Math.round((10 ** decimalPlace) * num) / (10 ** decimalPlace);
+}
+
 function capitalize(word) {
   if (typeof word !== "string") throw new Error("word is required");
   if (word === "") return word; //returns empty string if passed one rather than throwing an error
@@ -15,13 +19,13 @@ function generateInitials(firstName, lastName) {
 function addVAT(originalPrice, vatRate) {
   if (typeof originalPrice !== "number") throw new Error("originalPrice is required as a number");
   if (typeof vatRate !== "number") throw new Error("vatRate is required as a number");
-  return originalPrice + originalPrice * vatRate / 100;
+  return roundDecPlace(originalPrice + originalPrice * vatRate / 100, 2);
 }
 
 function getSalePrice(originalPrice, reduction) {
   if (typeof originalPrice !== "number") throw new Error("originalPrice is required as a number");
   if (typeof reduction !== "number") throw new Error("reduction is required as a number");
-  return originalPrice - originalPrice * reduction / 100;
+  return roundDecPlace(originalPrice - originalPrice * reduction / 100, 2);
 }
 
 function getMiddleCharacter(str) {
@@ -43,12 +47,16 @@ function reverseAllWords(words) {
 
 function countLinuxUsers(users) {
   if (Array.isArray(users) === false) throw new Error("users is required as an array");
-  return users.reduce((total,user) => user.type === "Linux" ? total + 1 : total , 0);
+  return users.reduce((total, user) => user.type === "Linux" ? total + 1 : total, 0);
 }
 
 function getMeanScore(scores) {
-  if (scores === undefined) throw new Error("scores is required");
-  // Add your code here!
+  if (Array.isArray(scores) === false) throw new Error("scores is required as an array");
+  function addIfNum(total, num) {
+    if (typeof num === "number") return total + num;
+    else throw new Error("all members of the array must be numbers");
+  }
+  return roundDecPlace(scores.reduce(addIfNum) / scores.length, 2);
 }
 
 function simpleFizzBuzz(n) {
@@ -57,6 +65,7 @@ function simpleFizzBuzz(n) {
 }
 
 module.exports = {
+  roundDecPlace,
   capitalize,
   generateInitials,
   addVAT,

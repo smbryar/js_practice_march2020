@@ -1,4 +1,5 @@
 const {
+  roundDecPlace,
   capitalize,
   generateInitials,
   addVAT,
@@ -10,6 +11,16 @@ const {
   getMeanScore,
   simpleFizzBuzz
 } = require("../challenges/week1");
+
+describe("roundDecPlace", () => {
+  test("returns a number to a given number of decimal places", () => {
+    expect(roundDecPlace(1.2894, 2)).toBe(1.29);
+  });
+
+  test("returns number to original precision if less than decimal places", () => {
+    expect(roundDecPlace(134, 3)).toBe(134);
+  });
+});
 
 describe("capitalize", () => {
   test("returns a capitalized string", () => {
@@ -64,19 +75,19 @@ describe("generateInitials", () => {
 
 describe("addVAT", () => {
   test("adds a VAT of 20% to a price of 100", () => {
-    expect(addVAT(100, 20)).toBeCloseTo(120);
+    expect(addVAT(100, 20)).toBe(120);
   });
 
   test("adds a VAT of 17.5% to a price of 40", () => {
-    expect(addVAT(40, 17.5)).toBeCloseTo(47);
+    expect(addVAT(40, 17.5)).toBe(47);
   });
 
   test("adds a VAT of 17.5% to a price of 33.50", () => {
-    expect(addVAT(33.5, 17.5)).toBeCloseTo(39.36); //using "toBeCloseTo" because of rounding errors in javascript
+    expect(addVAT(33.5, 17.5)).toBe(39.36);
   });
 
   test("adds a VAT of 0% to a price of 25", () => {
-    expect(addVAT(25, 0)).toBeCloseTo(25);
+    expect(addVAT(25, 0)).toBe(25);
   });
 
   test("throw error if originalPrice not given as a number", () => {
@@ -92,23 +103,23 @@ describe("addVAT", () => {
 
 describe("getSalePrice", () => {
   test("reduces a price of 100 by 50%", () => {
-    expect(getSalePrice(100, 50)).toBeCloseTo(50);
+    expect(getSalePrice(100, 50)).toBe(50);
   });
 
   test("reduces a price of 100 by 33.3%", () => {
-    expect(getSalePrice(100, 33.3)).toBeCloseTo(66.7);
+    expect(getSalePrice(100, 33.3)).toBe(66.7);
   });
 
   test("reduces a price of 79.99 by 15%", () => {
-    expect(getSalePrice(79.99, 15)).toBeCloseTo(67.99);
+    expect(getSalePrice(79.99, 15)).toBe(67.99);
   });
 
   test("reduces a price of 50 by 0%", () => {
-    expect(getSalePrice(50, 0)).toBeCloseTo(50);
+    expect(getSalePrice(50, 0)).toBe(50);
   });
 
   test("reduces a price of 0 by 40%", () => {
-    expect(getSalePrice(0, 40)).toBeCloseTo(0);
+    expect(getSalePrice(0, 40)).toBe(0);
   });
 
   test("throws error if original price not given as a number", () => {
@@ -185,12 +196,12 @@ describe("reverseAllWords", () => {
   })
 
   test("throws an error if not passed an array", () => {
-    expect(() => reverseAllWords("string")).toThrowError("words is required as an array");    
-    expect(() => reverseAllWords({name:"Bob", age:25})).toThrowError("words is required as an array");
+    expect(() => reverseAllWords("string")).toThrowError("words is required as an array");
+    expect(() => reverseAllWords({ name: "Bob", age: 25 })).toThrowError("words is required as an array");
   });
 
   test("throws an error if a member of the array is not a string", () => {
-    expect(() => reverseAllWords([true,"string"])).toThrowError("word is required as a string");
+    expect(() => reverseAllWords([true, "string"])).toThrowError("word is required as a string");
   });
 });
 
@@ -219,12 +230,12 @@ describe("countLinuxUsers", () => {
   });
 
   test("throws an error if not passed an array", () => {
-    expect(() => countLinuxUsers({name:"Bob", age:25})).toThrowError("users is required as an array");
+    expect(() => countLinuxUsers({ name: "Bob", age: 25 })).toThrowError("users is required as an array");
     expect(() => countLinuxUsers("linux")).toThrowError("users is required as an array");
   });
 });
 
-xdescribe("getMeanScore", () => {
+describe("getMeanScore", () => {
   test("returns the mean score from an array of scores", () => {
     expect(getMeanScore([8, 9, 7])).toBe(8);
     expect(getMeanScore([88, 86, 93])).toBe(89);
@@ -232,6 +243,15 @@ xdescribe("getMeanScore", () => {
 
   test("returns the mean to 2 decimal places", () => {
     expect(getMeanScore([24, 44, 56, 11, 12, 17, 34])).toBe(28.29);
+  });
+
+  test("throws an error if not passed an array", () => {
+    expect(() => getMeanScore({ name: "Bob", age: 25 })).toThrowError("scores is required as an array");
+    expect(() => getMeanScore("linux")).toThrowError("scores is required as an array");
+  });
+
+ test("throws an error if a member of the array is not a number", () => {
+    expect(() => getMeanScore([1,2,"toby"])).toThrowError("all members of the array must be numbers");
   });
 });
 
