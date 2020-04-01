@@ -194,7 +194,7 @@ describe("reverseAllWords", () => {
   });
 });
 
-xdescribe("countLinuxUsers", () => {
+describe("countLinuxUsers", () => {
   test("returns 0 if no Linux users found", () => {
     const users = [
       { name: "Heather", OS: "Windows 8", type: "Windows" },
@@ -216,6 +216,11 @@ xdescribe("countLinuxUsers", () => {
       { name: "Pedro", OS: "Windows 95", type: "Windows" }
     ];
     expect(countLinuxUsers(users)).toBe(5);
+  });
+
+  test("throws an error if not passed an array", () => {
+    expect(() => countLinuxUsers({name:"Bob", age:25})).toThrowError("users is required as an array");
+    expect(() => countLinuxUsers("linux")).toThrowError("users is required as an array");
   });
 });
 

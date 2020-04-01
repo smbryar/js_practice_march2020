@@ -42,8 +42,8 @@ function reverseAllWords(words) {
 }
 
 function countLinuxUsers(users) {
-  if (users === undefined) throw new Error("users is required");
-  // Add your code here!
+  if (Array.isArray(users) === false) throw new Error("users is required as an array");
+  return users.reduce((total,user) => user.type === "Linux" ? total + 1 : total , 0);
 }
 
 function getMeanScore(scores) {
