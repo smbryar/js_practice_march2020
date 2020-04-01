@@ -148,13 +148,24 @@ describe("getMiddleCharacter", () => {
   });
 });
 
-xdescribe("reverseWord", () => {
+describe("reverseWord", () => {
   test("returns the provided word, reversed", () => {
     expect(reverseWord("foo")).toBe("oof");
   });
 
   test("returns a longer sentence, reversed", () => {
     expect(reverseWord("why would you even want to do this?")).toBe("?siht od ot tnaw neve uoy dluow yhw");
+  });
+
+  test("returns an empty string when passed an empty string", () => {
+    expect(reverseWord("")).toBe("");
+  });
+
+  test("throws an error when not passed a string", () => {
+    expect(() => reverseWord(123)).toThrowError("word is required as a string");
+    expect(() => reverseWord(true)).toThrowError("word is required as a string");
+    expect(() => reverseWord(undefined)).toThrowError("word is required as a string");
+    expect(() => reverseWord(null)).toThrowError("word is required as a string");
   });
 });
 
