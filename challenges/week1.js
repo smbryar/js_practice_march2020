@@ -37,8 +37,8 @@ function reverseWord(word) {
 }
 
 function reverseAllWords(words) {
-  if (words === undefined) throw new Error("words is required");
-  // Add your code here!
+  if (Array.isArray(words) === false) throw new Error("words is required as an array");
+  return words.map(reverseWord);
 }
 
 function countLinuxUsers(users) {

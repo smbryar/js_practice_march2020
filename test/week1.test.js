@@ -169,7 +169,7 @@ describe("reverseWord", () => {
   });
 });
 
-xdescribe("reverseAllWords", () => {
+describe("reverseAllWords", () => {
   test("reverses a single word in an array", () => {
     expect(reverseAllWords(["jest"])).toEqual(["tsej"]);
   });
@@ -178,6 +178,19 @@ xdescribe("reverseAllWords", () => {
     expect(
       reverseAllWords(["jest", "mocha", "rspec", "jasmine", "selenium"])
     ).toEqual(["tsej", "ahcom", "cepsr", "enimsaj", "muineles"]);
+  });
+
+  test("returns an empty array if passed an empty array", () => {
+    expect(reverseAllWords([])).toEqual([]);
+  })
+
+  test("throws an error if not passed an array", () => {
+    expect(() => reverseAllWords("string")).toThrowError("words is required as an array");    
+    expect(() => reverseAllWords({name:"Bob", age:25})).toThrowError("words is required as an array");
+  });
+
+  test("throws an error if a member of the array is not a string", () => {
+    expect(() => reverseAllWords([true,"string"])).toThrowError("word is required as a string");
   });
 });
 
