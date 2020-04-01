@@ -13,26 +13,22 @@ function generateInitials(firstName, lastName) {
 }
 
 function addVAT(originalPrice, vatRate) {
-  if (originalPrice === undefined) throw new Error("originalPrice is required");
-  if (vatRate === undefined) throw new Error("vatRate is required");
-  return originalPrice + originalPrice * vatRate/100;
+  if (typeof originalPrice !== "number") throw new Error("originalPrice is required as a number");
+  if (typeof vatRate !== "number") throw new Error("vatRate is required as a number");
+  return originalPrice + originalPrice * vatRate / 100;
 }
 
 function getSalePrice(originalPrice, reduction) {
-  if (originalPrice === undefined) throw new Error("originalPrice is required");
-  if (reduction === undefined) throw new Error("reduction is required");
-  return originalPrice - originalPrice * reduction/100;
+  if (typeof originalPrice !== "number") throw new Error("originalPrice is required as a number");
+  if (typeof reduction !== "number") throw new Error("reduction is required as a number");
+  return originalPrice - originalPrice * reduction / 100;
 }
 
 function getMiddleCharacter(str) {
-  if (str === undefined) throw new Error("str is required");
-    let midChar = Math.floor(str.length/2);
-  if (str.length % 2 === 0) {
-    return str[midChar - 1] + str[midChar];
-  }
-  else {
-    return str[midChar];
-  }
+  if (typeof str !== "string") throw new Error("str is required");
+  if (str === "") return "";
+  let midChar = Math.floor(str.length / 2);
+  return (str.length % 2 === 0) ? str.substr(midChar - 1, 2) : str[midChar];
 }
 
 function reverseWord(word) {

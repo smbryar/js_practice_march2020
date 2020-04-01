@@ -79,12 +79,14 @@ describe("addVAT", () => {
     expect(addVAT(25, 0)).toBeCloseTo(25);
   });
 
-  test("throw error if originalPrice not given", () => {
-    expect(() => addVAT(undefined, 20)).toThrowError("originalPrice is required");
+  test("throw error if originalPrice not given as a number", () => {
+    expect(() => addVAT(undefined, 20)).toThrowError("originalPrice is required as a number");
+    expect(() => addVAT("100", 20)).toThrowError("originalPrice is required as a number");
   });
 
   test("throw error if vatRate not given", () => {
-    expect(() => addVAT(100, undefined)).toThrowError("vatRate is required");
+    expect(() => addVAT(100, undefined)).toThrowError("vatRate is required as a number");
+    expect(() => addVAT(100, "20")).toThrowError("vatRate is required as a number");
   });
 });
 
@@ -109,16 +111,17 @@ describe("getSalePrice", () => {
     expect(getSalePrice(0, 40)).toBeCloseTo(0);
   });
 
-  test("throws error if original price not given", () => {
-    expect(() => getSalePrice(undefined,50)).toThrowError("originalPrice is required");
+  test("throws error if original price not given as a number", () => {
+    expect(() => getSalePrice(undefined, 50)).toThrowError("originalPrice is required as a number");
+    expect(() => getSalePrice("100", 50)).toThrowError("originalPrice is required as a number");
   });
 
-  test("throws error if reduction rate is not given", () => {
-    expect(() => getSalePrice(44,undefined)).toThrowError("reduction is required");
+  test("throws error if reduction rate is not given as a number", () => {
+    expect(() => getSalePrice(44, undefined)).toThrowError("reduction is required as a number");
+    expect(() => getSalePrice(44, "40")).toThrowError("reduction is required as a number");
   });
 });
 
-//Add edge case tests here
 describe("getMiddleCharacter", () => {
   test("returns the middle character from a string of odd length", () => {
     expect(getMiddleCharacter("bears!!!!")).toBe("s");
@@ -126,6 +129,22 @@ describe("getMiddleCharacter", () => {
 
   test("returns the middle 2 characters from a string of even length", () => {
     expect(getMiddleCharacter("help!!")).toBe("lp");
+  });
+
+  test("returns empty string when passed empty string", () => {
+    expect(getMiddleCharacter("")).toBe("");
+  });
+
+  test("returns entire string when passed string of length one or two", () => {
+    expect(getMiddleCharacter("a")).toBe("a");
+    expect(getMiddleCharacter("ab")).toBe("ab");
+  });
+
+  test("returns error when not passed a string", () => {
+    expect(() => getMiddleCharacter(356)).toThrowError("str is required");
+    expect(() => getMiddleCharacter(true)).toThrowError("str is required");
+    expect(() => getMiddleCharacter(undefined)).toThrowError("str is required");
+    expect(() => getMiddleCharacter(null)).toThrowError("str is required");
   });
 });
 
@@ -135,9 +154,7 @@ xdescribe("reverseWord", () => {
   });
 
   test("returns a longer sentence, reversed", () => {
-    expect(reverseWord("why would you even want to do this?")).toBe(
-      "?siht od ot tnaw neve uoy dluow yhw"
-    );
+    expect(reverseWord("why would you even want to do this?")).toBe("?siht od ot tnaw neve uoy dluow yhw");
   });
 });
 
