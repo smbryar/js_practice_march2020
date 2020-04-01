@@ -60,8 +60,12 @@ function getMeanScore(scores) {
 }
 
 function simpleFizzBuzz(n) {
-  if (n === undefined) throw new Error("n is required");
-  // Add your code here!
+  if (typeof n !== "number") throw new Error("n is required as a number");
+  if (n % 1 !== 0 || n < 0) throw new Error("n needs to be a positive integer");
+  if (n % 15 === 0) return "fizzbuzz";
+  if (n % 3 === 0) return "fizz";
+  if (n % 5 === 0) return "buzz";
+  else return n;
 }
 
 module.exports = {

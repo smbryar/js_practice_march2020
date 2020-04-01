@@ -255,7 +255,7 @@ describe("getMeanScore", () => {
   });
 });
 
-xdescribe("simpleFizzBuzz", () => {
+describe("simpleFizzBuzz", () => {
   test("returns 'fizz' if the number is divisible by 3", () => {
     expect(simpleFizzBuzz(3)).toBe("fizz");
   });
@@ -268,7 +268,16 @@ xdescribe("simpleFizzBuzz", () => {
     expect(simpleFizzBuzz(4)).toBe(4);
   });
 
+  test("throws an error if the number is not a positive integer", () => {
+    expect(() => simpleFizzBuzz(4.2)).toThrowError("n needs to be a positive integer");
+    expect(() => simpleFizzBuzz(-3)).toThrowError("n needs to be a positive integer");
+  });
+
   test("returns 'fizzbuzz' if the number is divisible by 3 and 5", () => {
     expect(simpleFizzBuzz(15)).toBe("fizzbuzz");
+  });
+
+  test("throws an error if n is not a number", () => {
+    expect(() => simpleFizzBuzz("number")).toThrowError("n is required as a number");
   });
 });
