@@ -6,7 +6,7 @@ const {
   hasMPostCode
 } = require("../challenges/week2");
 
-describe("getFillings", () => {
+describe.only("getFillings", () => {
   test("returns the fillings of a sandwich", () => {
     const sandwich = {
       bread: "Sourdough",
@@ -21,6 +21,19 @@ describe("getFillings", () => {
       accompaniment: "wedges"
     };
     expect(getFillings(sandwich2)).toEqual(["smoked salmon", "dill"]);
+  });
+
+  test("throws error when sandwich has no fillings", () => {
+    const sandwich3 = {
+      bread: "White",
+      accompaniment: "crisps"
+    };
+    expect(() => getFillings(sandwich3)).toThrowError("ingredients is required");
+  });
+
+  test("throws error when sandwich is undefined", () => {
+    const sandwich4 = undefined;
+    expect(() => getFillings(sandwich4)).toThrowError("sandwich is required");
   });
 });
 
