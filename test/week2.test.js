@@ -6,7 +6,7 @@ const {
   hasMPostCode
 } = require("../challenges/week2");
 
-describe.only("getFillings", () => {
+describe("getFillings", () => {
   test("returns the fillings of a sandwich", () => {
     const sandwich = {
       bread: "Sourdough",
@@ -54,6 +54,23 @@ describe("isFromManchester", () => {
       age: 39
     };
     expect(isFromManchester(person)).toBe(false);
+  });
+
+  test("throw error if city is undefined", () => {
+    const person = {
+      name: "Tony"
+    };
+    expect(() => isFromManchester(person)).toThrowError("city is required");
+    const person2 = {
+      name: "Bob",
+      city: undefined
+    };
+    expect(() => isFromManchester(person2)).toThrowError("city is required");
+  });
+
+  test("throw error if person is undefined", () => {
+    const person = undefined;
+    expect(() => isFromManchester(person)).toThrowError("person is required");
   });
 });
 

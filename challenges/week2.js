@@ -6,12 +6,13 @@ function getFillings(sandwich) {
 
 function isFromManchester(person) {
   if (person === undefined) throw new Error("person is required");
-  // Your code here!
+  if (person.city === undefined) throw new Error ("city is required");
+  return person.city === "Manchester";
 }
 
 function getBusNumbers(people) {
   if (people === undefined) throw new Error("people is required");
-  // Your code here!
+  return Math.ceil(people/40);  
 }
 
 function countSheep(arr) {
