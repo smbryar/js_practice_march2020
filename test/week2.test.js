@@ -103,7 +103,7 @@ describe("getBusNumbers", () => {
   });
 });
 
-describe("countSheep", () => {
+describe.only("countSheep", () => {
   test("returns 0 if there are 0 sheep in the array", () => {
     const arr = ["dog", "badger", "dog", "dog", "chicken"];
     expect(countSheep(arr)).toBe(0);
@@ -132,6 +132,11 @@ describe("countSheep", () => {
       "sheep"
     ];
     expect(countSheep(arr)).toBe(5);
+  });
+
+  test("returns 2 if there are 2 sheep in the array, ignores case", () => {
+    const arr = ["dog", "Sheep", "dog", "SHEEP", "chicken"];
+    expect(countSheep(arr)).toBe(2);
   });
 });
 
