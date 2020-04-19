@@ -1,8 +1,3 @@
-function getSquares(nums) {
-  if (nums === undefined) throw new Error("nums is required");
-  return nums.map(n => n *n);
-}
-
 function camelCaseWords(words) {
   if (words === undefined) throw new Error("words is required");
   if (words.length === 1) {return words[0]}
@@ -13,9 +8,18 @@ function camelCaseWords(words) {
   }
 }
 
+function getSquares(nums) {
+  if (nums === undefined) throw new Error("nums is required");
+  return nums.map(n => n *n);
+}
+
 function getTotalSubjects(people) {
   if (people === undefined) throw new Error("people is required");
-  // Your code here!
+  let count = 0;
+  for (let i = 0; i<people.length; i++) {
+    count = count + people[i].subjects.length;
+  }
+  return count;
 }
 
 function checkIngredients(menu, ingredient) {
