@@ -9,16 +9,12 @@ function camelCaseWords(words) {
 
 function getSquares(nums) {
   if (nums === undefined) throw new Error("nums is required");
-  return nums.map(n => n *n);
+  return nums.map(n => n * n);
 }
 
 function getTotalSubjects(people) {
   if (people === undefined) throw new Error("people is required");
-  let count = 0;
-  for (let i = 0; i<people.length; i++) {
-    count = count + people[i].subjects.length;
-  }
-  return count;
+  return people.reduce((total,person) => total + person.subjects.length,0)
 }
 
 function checkIngredients(menu, ingredient) {
