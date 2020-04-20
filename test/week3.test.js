@@ -44,7 +44,7 @@ describe("getSquares", () => {
   });
 });
 
-describe.only("getTotalSubjects", () => {
+describe("getTotalSubjects", () => {
   test("returns 0 if no people have subjects", () => {
     const people = [
       { name: "Billy", subjects: [] },
@@ -73,7 +73,7 @@ describe.only("getTotalSubjects", () => {
   });
 });
 
-describe("checkIngredients", () => {
+describe.only("checkIngredients", () => {
   test("returns false if no menu items include the specified ingredient", () => {
     const menu = [
       {
