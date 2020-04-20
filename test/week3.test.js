@@ -6,7 +6,7 @@ const {
   duplicateNumbers
 } = require("../challenges/week3");
 
-describe("camelCaseWords", () => {
+describe.only("camelCaseWords", () => {
   test("camel cases a single word (i.e. no capital letter at beginning)", () => {
     expect(camelCaseWords(["my"])).toBe("my");
   });
@@ -19,9 +19,15 @@ describe("camelCaseWords", () => {
     expect(camelCaseWords(["my", "variable"])).toBe("myVariable");
     expect(camelCaseWords(["my", "variable", "name"])).toBe("myVariableName");
     expect(camelCaseWords(["is", "unique"])).toBe("isUnique");
-    expect(camelCaseWords(["is", "higher", "than", "min", "number"])).toBe(
-      "isHigherThanMinNumber"
-    );
+    expect(camelCaseWords(["is", "higher", "than", "min", "number"])).toBe("isHigherThanMinNumber");
+  });
+
+  test("camel cases appropriately despite inclusion of numbers and special characters", () => {
+    expect(camelCaseWords(["my", "3", "favourite", "words"])).toBe("my3FavouriteWords");
+  });
+
+  test("camel cases despite mixed initial capitalisation", () => {
+    expect(camelCaseWords(["MY", "favourite", "FoOD"])).toBe("myFavouriteFood");
   });
 });
 

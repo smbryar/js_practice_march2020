@@ -4,7 +4,8 @@ const {
 
 function camelCaseWords(words) {
   if (words === undefined) throw new Error("words is required");
-    return words.splice(0,1) + words.map(capitalize).join("");
+  words = words.map(w => w.toLowerCase());
+  return words.splice(0, 1) + words.map(capitalize).join("");
 }
 
 function getSquares(nums) {
@@ -14,7 +15,7 @@ function getSquares(nums) {
 
 function getTotalSubjects(people) {
   if (people === undefined) throw new Error("people is required");
-  return people.reduce((total,person) => total + person.subjects.length,0)
+  return people.reduce((total, person) => total + person.subjects.length, 0)
 }
 
 function checkIngredients(menu, ingredient) {
