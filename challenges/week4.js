@@ -1,3 +1,7 @@
+const {
+  roundDecPlace
+} = require("../challenges/week1");
+
 function findSmallNums(nums) {
   if (!nums) throw new Error("nums is required");
   return nums.filter(n => n < 1);
@@ -26,7 +30,7 @@ function getCities(users) {
 
 function getSquareRoots(nums) {
   if (!nums) throw new Error("nums is required");
-  // Your code here
+  return nums.map(n => roundDecPlace(Math.sqrt(n),2));
 }
 
 function findSentencesContaining(sentences, str) {
