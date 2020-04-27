@@ -118,7 +118,7 @@ describe("getSquareRoots", () => {
   });
 });
 
-xdescribe("findSentencesContaining", () => {
+describe("findSentencesContaining", () => {
   const sentencesAboutPackageJson = [
     "You should specify a license for your package so that people know how they are permitted to use it",
     "The main field is a module ID that is the primary entry point to your program",
