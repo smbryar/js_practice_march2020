@@ -1,3 +1,7 @@
+const {
+  reverseWord
+} = require("../challenges/week1");
+
 const findNextNumber = (nums, n) => {
   if (nums === undefined) throw new Error("nums is required");
   if (n === undefined) throw new Error("n is required");
@@ -15,7 +19,7 @@ const count1sand0s = str => {
 
 const reverseNumber = n => {
   if (n === undefined) throw new Error("n is required");
-  // Your code here!
+  return parseInt(reverseWord(n.toString()));
 };
 
 const sumArrays = arrs => {
