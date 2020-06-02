@@ -30,3 +30,22 @@ const {
       expect(sumMultiples([0.1,2.0,3.0,0.5])).toBe(3);
     });
   });
+
+  describe("isValidDNA", () => {
+    test("throws error if not passed an argument", () => {
+        expect(() => isValidDNA()).toThrow("str is required");
+    });
+    test("throws error if not passed a string", () => {
+        expect(() => isValidDNA(123)).toThrow("input must be a string");
+    });
+    test("returns true if passed valid DNA", () => {
+        expect(isValidDNA("ACCGTAT")).toBe(true);
+    });
+    test("returns false if passed invalid DNA", () => {
+        expect(isValidDNA("ACCBHTAT")).toBe(false);
+    });
+    test("is not case sensitive", () => {
+        expect(isValidDNA("AcCbhTaT")).toBe(false);
+        expect(isValidDNA("AcCgT")).toBe(true);
+    });
+  });
