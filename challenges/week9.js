@@ -31,17 +31,23 @@ const getComplementaryDNA = str => {
   if (str === undefined) throw new Error("str is required");
   if (typeof str !== "string") throw new Error("input must be a string");
   if (!isValidDNA(str)) throw new Error("input must be valid DNA string");
-  const DNAPairs = {"A":"T", "T":"A", "C":"G", "G":"C"};
+  const DNAPairs = { "A": "T", "T": "A", "C": "G", "G": "C" };
   return str.split("").map(base => DNAPairs[base.toUpperCase()]).join("");
 };
 
 /**
- * This function should receive a number and return true/false depending on whether it is a prime number or not. A prime number is a number that can only be divided evenly by 1 and itself (for example, 7)
+ * This function should receive a number and return true/false depending on whether it is a prime number or not. 
+ * A prime number is a number that can only be divided evenly by 1 and itself (for example, 7)
  * @param {Number} n
  * @returns {Boolean}
  */
 const isItPrime = n => {
   if (n === undefined) throw new Error("n is required");
+  if (typeof n !== "number") throw new Error("input must be a number");
+  for (let i = 2; i < Math.sqrt(n); i++) {
+    if (n % i === 0) { return false }
+  }
+  return n > 1;
 };
 
 /**

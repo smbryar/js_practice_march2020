@@ -69,3 +69,32 @@ describe("getComplementaryDNA", () => {
     expect(getComplementaryDNA("aTcG")).toBe("TAGC");
   });
 });
+
+describe("isItPrime", () => {
+  test("throws error if not passed an argument", () => {
+    expect(() => isItPrime()).toThrow("n is required");
+  });
+  test("throws error if not passed a number", () => {
+    expect(() => isItPrime("hello")).toThrow("input must be a number");
+    expect(() => isItPrime(["A"])).toThrow("input must be a number");
+  });
+  test("returns true for low prime numbers", () => {
+    expect(isItPrime(2)).toBe(true);
+    expect(isItPrime(7)).toBe(true);
+    expect(isItPrime(13)).toBe(true);
+  });
+  test("returns true for large prime numbers", () => {
+    expect(isItPrime(3691)).toBe(true);
+    expect(isItPrime(7919)).toBe(true);
+  });
+  test("returns false for negative values", () => {
+    expect(isItPrime(-1)).toBe(false);
+    expect(isItPrime(-3)).toBe(false);
+    expect(isItPrime(-300)).toBe(false);
+  });
+  test("returns false for non-primes", () => {
+    expect(isItPrime(0)).toBe(false);
+    expect(isItPrime(1)).toBe(false);
+    expect(isItPrime(8)).toBe(false);
+  });
+});
