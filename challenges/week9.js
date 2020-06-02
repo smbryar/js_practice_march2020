@@ -51,7 +51,8 @@ const isItPrime = n => {
 };
 
 /**
- * This function should receive a number and return an array of n arrays, each filled with n items. The parameter "fill" should be used as the filler of the arrays. For example, given parameters 3 and "foo" the resulting matrix should be:
+ * This function should receive a number and return an array of n arrays, each filled with n items. 
+ * The parameter "fill" should be used as the filler of the arrays. For example, given parameters 3 and "foo" the resulting matrix should be:
  * [
  *   ["foo", "foo", "foo"],
  *   ["foo", "foo", "foo"],
@@ -64,6 +65,11 @@ const isItPrime = n => {
 const createMatrix = (n, fill) => {
   if (n === undefined) throw new Error("n is required");
   if (fill === undefined) throw new Error("fill is required");
+  if (typeof n !== "number") throw new Error("input n must be a number");
+  if (typeof fill !== "string") throw new Error("input fill must be a string");
+  if (n < 0 || n % 1 !== 0) throw new Error("input n must be a positive integer");
+  const singleLine = Array(n).fill(fill);
+  return Array(n).fill(singleLine);
 };
 
 /**

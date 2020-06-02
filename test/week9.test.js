@@ -98,3 +98,44 @@ describe("isItPrime", () => {
     expect(isItPrime(8)).toBe(false);
   });
 });
+
+describe("createMatrix", () => {
+  test("throws error if not passed a size value", () => {
+    expect(() => createMatrix(undefined, "foo")).toThrow("n is required");
+  });
+  test("throws error if not passed a fill value", () => {
+    expect(() => createMatrix(5)).toThrow("fill is required");
+  });
+  test("throws error if size is not a number", () => {
+    expect(() => createMatrix("foo", "foo")).toThrow("input n must be a number");
+  });
+  test("throws error if size is not a positive integer", () => {
+    expect(() => createMatrix(-3, "foo")).toThrow("input n must be a positive integer");
+    expect(() => createMatrix(0.4, "foo")).toThrow("input n must be a positive integer");
+  });
+  test("throws error if fill is not a string", () => {
+    expect(() => createMatrix(5, 5)).toThrow("input fill must be a string");
+  });
+  test("returns an empty array when n=0", () => {
+    expect(createMatrix(0, "foo")).toEqual([]);
+  });
+  test("returns a single nested array when n=1", () => {
+    expect(createMatrix(1, "foo")).toEqual([["foo"]]);
+  });
+  test("returns an array when n>1", () => {
+    const result = [
+      ["foo", "foo", "foo"],
+      ["foo", "foo", "foo"],
+      ["foo", "foo", "foo"]
+    ];
+    expect(createMatrix(3, "foo")).toEqual(result);
+  });
+  test("returns an array of empty strings when fill is an empty string", () => {
+    const result = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""]
+    ];
+    expect(createMatrix(3, "")).toEqual(result);
+  });
+});
