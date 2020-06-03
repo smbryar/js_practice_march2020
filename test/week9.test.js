@@ -139,3 +139,42 @@ describe("createMatrix", () => {
     expect(createMatrix(3, "")).toEqual(result);
   });
 });
+
+describe("areWeCovered", () => {
+  test("throws error if not passed a staff value", () => {
+    expect(() => areWeCovered(undefined, "Monday")).toThrow("staff is required");
+  });
+  test("throws error if not passed a fill value", () => {
+    expect(() => areWeCovered([
+      { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }], undefined)).toThrow("day is required");
+  });
+  test("throws error if staff is not an array", () => {
+    expect(() => areWeCovered("Sally", "Monday")).toThrow("input staff must be an array");
+  });
+  test("throws error if staff objects do not have the keys name and rota", () => {
+    expect(() => areWeCovered([{ name: "Sally" }], "Monday")).toThrow("each staff object must be of the form {name: , rota: }");
+  });
+  test("throws error if day is not a string", () => {
+    expect(() => areWeCovered([
+      { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] }], 5)).toThrow("input day must be a string");
+  });
+  const staff1 = [
+    { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] },
+    { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday", "Wednesday"] },
+    { name: "Andrew", rota: ["Monday", "Tuesday", "Saturday"] },
+    { name: "Anne-Marie", rota: ["Saturday", "Thursday", "Friday"] }
+  ];
+  test("returns true when there are at least 3 staff members on a day", () => {
+    expect(areWeCovered(staff1, "Tuesday")).toBe(true);
+    expect(areWeCovered(staff1, "Saturday")).toBe(true);
+  });
+  test("returns false when there are less than 3 staff members on a day", () => {
+    expect(areWeCovered(staff1, "Monday")).toBe(false);
+    expect(areWeCovered(staff1, "Wednesday")).toBe(false);
+    expect(areWeCovered(staff1, "Thursday")).toBe(false);
+    expect(areWeCovered(staff1, "Friday")).toBe(false);
+    expect(areWeCovered(staff1, "Sunday")).toBe(false);
+  });
+
+
+});

@@ -79,7 +79,8 @@ const createMatrix = (n, fill) => {
  *  { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday", "Wednesday"] },
  *  ...etc
  * ]
- * and a day of the week. For the café to run successfully, at least 3 staff members are required per day. The function should return true/false depending on whether there are enough staff scheduled for the given day.
+ * and a day of the week. For the café to run successfully, at least 3 staff members are required per day. 
+ * The function should return true/false depending on whether there are enough staff scheduled for the given day.
  * @param {Array} staff
  * @param {String} day
  * @returns {Boolean}
@@ -87,6 +88,15 @@ const createMatrix = (n, fill) => {
 const areWeCovered = (staff, day) => {
   if (staff === undefined) throw new Error("staff is required");
   if (day === undefined) throw new Error("day is required");
+  if (!Array.isArray(staff)) throw new Error("input staff must be an array");
+  if (typeof day !== "string") throw new Error("input day must be a string");
+  if (staff.some(obj => !Object.keys(obj).includes("name") || !Object.keys(obj).includes("rota") || !Object.keys(obj).length === 2)) throw new Error("each staff object must be of the form {name: , rota: }");
+  let count = 0;
+  for (let person of staff) {
+    if (person.rota.includes(day)) {count++}
+    if (count === 3) {return true}
+  }
+  return false;
 };
 
 module.exports = {
