@@ -4,6 +4,9 @@
  */
 const sumDigits = n => {
   if (n === undefined) throw new Error("n is required");
+  if (typeof n !== "number") throw new Error("n must have type number");
+  if (n < 0 || n % 1 !== 0) throw new Error("n must be a positive integer");
+  return n.toString().split("").reduce((tot,num) => tot + +num,0)
 };
 
 /**
