@@ -1,5 +1,3 @@
-// To improve: generalise hexToRGB for modern shortenings
-
 /**
  * This function takes a number, e.g. 123 and returns the sum of all its digits, e.g 6 in this example.
  * @param {Number} n
@@ -105,8 +103,10 @@ const getScreentimeAlertList = (users, date) => {
 const hexToRGB = hexStr => {
   if (hexStr === undefined) throw new Error("hexStr is required");
   if (typeof hexStr !== "string") throw new Error("hexStr must be a string");
-  if (!hexStr.match(/^#[\da-fA-F]{6}$/)) throw new Error("hexStr must be a valid hex colour code");
-  let hexArr = hexStr.match(/[\d\w]{2}/g);
+  if (!(hexStr.match(/^#[\da-fA-F]{6}$/) || hexStr.match(/^#[\da-fA-F]{3}$/))) throw new Error("hexStr must be a valid hex colour code");
+  let hexArr;
+  if (hexStr.length === 7) hexArr = hexStr.match(/[\d\w]{2}/g); // Full length code
+  else if (hexStr.length === 4) hexArr = hexStr.match(/[\d\w]{1}/g).map(char => char+char); // Shorthand code
   let rgbArr = hexArr.map(colour => parseInt(colour, 16).toString());
   return `rgb(${rgbArr.join(",")})`
 };

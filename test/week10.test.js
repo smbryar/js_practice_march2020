@@ -160,8 +160,15 @@ describe("hexToRGB", () => {
         expect(() => hexToRGB("#zzzzzz")).toThrow("hexStr must be a valid hex colour code");
         expect(() => hexToRGB("FF1133")).toThrow("hexStr must be a valid hex colour code");
     });
-    test("returns valid rgb colour", () => {
+    test("throws error if not passed a hexStr of shorthand structure #000", () => {
+        expect(() => hexToRGB("#zzz")).toThrow("hexStr must be a valid hex colour code");
+        expect(() => hexToRGB("F13")).toThrow("hexStr must be a valid hex colour code");
+    });
+    test("returns valid rgb colour from full hex code", () => {
         expect(hexToRGB("#FF1133")).toBe("rgb(255,17,51)");
+    });
+    test("returns valid rgb colour from shorthand hex code", () => {
+        expect(hexToRGB("#F13")).toBe("rgb(255,17,51)");
     });
 });
 
