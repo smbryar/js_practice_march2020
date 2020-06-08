@@ -27,3 +27,21 @@ describe("sumDigits", () => {
       expect(sumDigits(0)).toBe(0);
     });
   });
+
+describe("createRange", () => {
+    test("throws error if not passed a start value", () => {
+        expect(() => createRange(undefined,6)).toThrow("start is required");
+    });
+    test("throws error if not passed an end value", () => {
+        expect(() => createRange(5,undefined)).toThrow("end is required");
+    });
+    test("throws error if steps from start value would not include end value", () => {
+        expect(() => createRange(2,5,2)).toThrow("cannot reach end value from start value");
+    });
+    test("produces array of values in range when not provided a step value", () => {
+        expect(createRange(2,5)).toEqual([2,3,4,5]);
+    });
+    test("produces array of values in range when provided a step value", () => {
+        expect(createRange(2,6,2)).toEqual([2,4,6]);
+    });
+})
