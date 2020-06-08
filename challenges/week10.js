@@ -6,7 +6,7 @@ const sumDigits = n => {
   if (n === undefined) throw new Error("n is required");
   if (typeof n !== "number") throw new Error("n must have type number");
   if (n < 0 || n % 1 !== 0) throw new Error("n must be a positive integer");
-  return n.toString().split("").reduce((tot,num) => tot + +num,0)
+  return n.toString().split("").reduce((tot, num) => tot + +num, 0)
 };
 
 /**
@@ -24,7 +24,7 @@ const createRange = (start, end, step) => {
   if (end === undefined) throw new Error("end is required");
   if (step !== undefined && (start - end) % step !== 0) throw new Error("cannot reach end value from start value");
   let range = [];
-  for (let i=start; i<=end; step ? i=i+step : i++) {
+  for (let i = start; i <= end; step ? i = i + step : i++) {
     range.push(i)
   }
   return range;
@@ -59,9 +59,39 @@ const createRange = (start, end, step) => {
  * For example, if passed the above users and the date "2019-05-04" the function should return ["beth_1234"] as she used over 100 minutes of screentime on that date.
  * @param {Array} users
  */
+
+const validateDate = (dateString) => {
+  try {
+    var regEx = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateString.match(regEx)) return false;
+    let date = new Date(dateString);
+    console.log(date, date.toISOString())
+    return date.toISOString().slice(0, 10) === dateString;
+  }
+  catch (err) { return false }
+}
+
 const getScreentimeAlertList = (users, date) => {
   if (users === undefined) throw new Error("users is required");
+  if (!Array.isArray(users)) throw new Error("input users must be an array");
+  if (users.some(obj => !Object.keys(obj).includes("username") || !Object.keys(obj).includes("name") || !Object.keys(obj).includes("screenTime") || !Object.keys(obj).length === 3)) throw new Error("each user object must be of the form {username: , name: , screenTime: }");
+  if (users.some(obj => obj.screenTime.some(usageObj => !Object.keys(usageObj).includes("date") || !Object.keys(usageObj).includes("usage") || !Object.keys(usageObj).length === 2))) throw new Error("each user object value of screentime must be of form {date: , usage: }");
+
   if (date === undefined) throw new Error("date is required");
+  if (typeof date !== "string") throw new Error("input date must be a string");
+  if (!validateDate(date)) throw new Error("input date must a valid date in format yyyy-mm-dd");
+
+  let result = [];
+
+  for (let i=0; i<users.length; i++) {
+    for (let j=0; j<users[i].screenTime.length; j++) {
+      if (users[i].screenTime[j].date === date) {
+        let dayUsage = Object.values(users[i].screenTime[j].usage).reduce((a,b) => a+b)
+        if (dayUsage > 100) {result.push(users[i].username)}
+      }
+    }
+  }
+  return result;
 };
 
 /**
