@@ -1,3 +1,5 @@
+// To improve: generalise hexToRGB for modern shortenings
+
 /**
  * This function takes a number, e.g. 123 and returns the sum of all its digits, e.g 6 in this example.
  * @param {Number} n
@@ -81,17 +83,11 @@ const getScreentimeAlertList = (users, date) => {
   if (typeof date !== "string") throw new Error("input date must be a string");
   if (!validateDate(date)) throw new Error("input date must a valid date in format yyyy-mm-dd");
 
-  let result = [];
-
-  for (let i=0; i<users.length; i++) {
-    for (let j=0; j<users[i].screenTime.length; j++) {
-      if (users[i].screenTime[j].date === date) {
-        let dayUsage = Object.values(users[i].screenTime[j].usage).reduce((a,b) => a+b)
-        if (dayUsage > 100) {result.push(users[i].username)}
-      }
-    }
-  }
-  return result;
+  return users.reduce((usernameArr,user) => {
+    let usageCheck = user.screenTime.some(day => day.date === date && Object.values(day.usage).reduce((a,b) => a + b) > 100);
+    if (usageCheck) usernameArr.push(user.username);
+    return usernameArr;
+  },[])
 };
 
 /**

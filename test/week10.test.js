@@ -144,20 +144,6 @@ describe("getScreentimeAlertList", () => {
     test("returns empty array when screen time is 100 mins or less", () => {
         expect(getScreentimeAlertList(testUsers, testDate3)).toEqual([]);
     });
-
-
-
-
-    // if (typeof date !== "string") throw new Error("input date must be a string");
-    // test("throws error if steps from start value would not include end value", () => {
-    //     expect(() => createRange(2,5,2)).toThrow("cannot reach end value from start value");
-    // });
-    // test("produces array of values in range when not provided a step value", () => {
-    //     expect(createRange(2,5)).toEqual([2,3,4,5]);
-    // });
-    // test("produces array of values in range when provided a step value", () => {
-    //     expect(createRange(2,6,2)).toEqual([2,4,6]);
-    // });
 });
 
 describe("hexToRGB", () => {
