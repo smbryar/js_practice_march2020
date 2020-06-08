@@ -178,3 +178,104 @@ describe("hexToRGB", () => {
         expect(hexToRGB("#FF1133")).toBe("rgb(255,17,51)");
     });
 });
+
+describe("findWinner", () => {
+    const xWinsColumn = [
+        ["X", "0", null],
+        ["X", null, "0"],
+        ["X", null, "0"]
+    ];
+    const xWinsRow = [
+        ["X", "X", "X"],
+        ["0", null, "0"],
+        ["X", null, "0"]
+    ];
+    const xWinsDiagonal1 = [
+        ["X", null, "0"],
+        ["0", "X", "0"],
+        ["X", null, "X"]
+    ];
+    const xWinsDiagonal2 = [
+        ["X", null, "X"],
+        ["0", "X", "0"],
+        ["X", null, "0"]
+    ];
+    const OWinsRow = [
+        ["X", null, "X"],
+        ["0", "X", "0"],
+        ["0", "0", "0"]
+    ];
+    const OWinsColumn = [
+        ["X", null, "0"],
+        ["0", "X", "0"],
+        ["0", "X", "0"]
+    ];
+    const OWinsDiagonal1 = [
+        ["0", null, "0"],
+        ["X", "0", "0"],
+        ["0", "X", "0"]
+    ];
+    const OWinsDiagonal2 = [
+        ["X", null, "0"],
+        ["0", "0", "X"],
+        ["0", "X", "0"]
+    ];
+    const noWinner = [
+        ["X", null, "0"],
+        ["0", null, "X"],
+        ["0", "X", "0"]
+    ];
+    test("throws error if not passed a board", () => {
+        expect(() => findWinner()).toThrow("board is required");
+    });
+    test("throws error if board is not an array", () => {
+        expect(() => findWinner("board")).toThrow("board must be an array");
+        expect(() => findWinner(true)).toThrow("board must be an array");
+        expect(() => findWinner(7)).toThrow("board must be an array");
+        expect(() => findWinner({})).toThrow("board must be an array");
+    });
+    test("throws error if board is not 3 by 3", () => {
+        const testSmallBoard = [
+            ["X", "0"],
+            ["X", null]
+        ];
+        const testShortBoard = [
+            ["X", "0"],
+            ["X", null],
+            ["X", null]
+        ];
+        expect(() => findWinner(testSmallBoard)).toThrow("board must be a 3 by 3 array");
+        expect(() => findWinner(testShortBoard)).toThrow("board must be a 3 by 3 array");
+    });
+    test("throws error if board contains values other than \"0\", \"X\" and null", () => {
+        const testWrongValueBoard = [
+            ["X", "0", 7],
+            ["X", null, "0"],
+            ["X", null, "0"]
+        ];
+        expect(() => findWinner(testWrongValueBoard)).toThrow("board must only contain the values \"0\", \"X\" and null");
+    });
+    test("X wins via row", () => {
+        expect(findWinner(xWinsRow)).toBe("X");
+    });
+    test("0 wins via row", () => {
+        expect(findWinner(OWinsRow)).toBe("0");
+    });
+    test("X wins via column", () => {
+        expect(findWinner(xWinsColumn)).toBe("X");
+    });
+    test("0 wins via column", () => {
+        expect(findWinner(OWinsColumn)).toBe("0");
+    });
+    test("X wins via diagonal", () => {
+        expect(findWinner(xWinsDiagonal1)).toBe("X");
+        expect(findWinner(xWinsDiagonal2)).toBe("X");
+    });
+    test("0 wins via diagonal", () => {
+        expect(findWinner(OWinsDiagonal1)).toBe("0");
+        expect(findWinner(OWinsDiagonal2)).toBe("0");
+    });
+    test("returns null if there is no winner", () => {
+        expect(findWinner(noWinner)).toBe(null);
+    });
+});

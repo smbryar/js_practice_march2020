@@ -115,14 +115,6 @@ const hexToRGB = hexStr => {
   return `rgb(${rgbArr.join(",")})`
 };
 
-// function colorOf(r,g,b){
-//   return [r,g,b].reduce((str, colour) => {
-//   let col = colour.toString(16);
-//   return col.length < 2 ? str+"0"+col : str+col;  
-//   }  
-//   ,"#")  
-// }
-
 /**
  * This function takes a noughts and crosses board represented as an array, where an empty space is represented with null.
  * [
@@ -135,6 +127,43 @@ const hexToRGB = hexStr => {
  */
 const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
+  if (!Array.isArray(board)) throw new Error("board must be an array");
+  if (board.length !== 3 || board.some(row => row.length !== 3)) throw new Error("board must be a 3 by 3 array");
+  const validElements = ["0", "X", null]
+  if (board.some(row => row.some(element => !validElements.includes(element)))) throw new Error("board must only contain the values \"0\", \"X\" and null");
+  // map board to numbers
+  const numBoard = board.map(row => row.map(element => {
+    if (element === "0") element = 0;
+    else if (element === "X") element = 1;
+    else if (element === null) element = "blank";
+    return element;
+  }))
+  
+  let columns = [0,0,0];
+  let diagonals = [0,0];
+
+  // Check diagonals
+  diagonals[0] = numBoard[0][0] + numBoard[1][1] + numBoard[2][2];
+  diagonals[1] = numBoard[0][2] + numBoard[1][1] + numBoard[2][0];
+  if (diagonals.some(diagonalTotal => diagonalTotal === 0)) return "0";
+  else if (diagonals.some(diagonalTotal => diagonalTotal === 3)) return "X";
+
+  for (let i=0; i<numBoard.length; i++) {
+    // Check rows
+    let row = numBoard[i].reduce((a,b) => a+b,0);
+    if (row === 0) return "0";
+    else if (row === 3) return "X";
+    
+    // Process columns
+    for (let j=0; j<numBoard[i].length; j++) {
+      columns[j] = columns[j]+numBoard[i][j];
+    }  
+    
+  }
+  // Check columns
+  if (columns.some(columnTotal => columnTotal === 0)) return "0";
+  else if (columns.some(columnTotal => columnTotal === 3)) return "X";
+  else return null;
 };
 
 module.exports = {
