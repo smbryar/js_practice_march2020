@@ -44,7 +44,7 @@ describe("createRange", () => {
     test("produces array of values in range when provided a step value", () => {
         expect(createRange(2, 6, 2)).toEqual([2, 4, 6]);
     });
-})
+});
 
 describe("getScreentimeAlertList", () => {
     const testDate = "2019-05-02";
@@ -158,4 +158,23 @@ describe("getScreentimeAlertList", () => {
     // test("produces array of values in range when provided a step value", () => {
     //     expect(createRange(2,6,2)).toEqual([2,4,6]);
     // });
-})
+});
+
+describe("hexToRGB", () => {
+    test("throws error if not passed a hexStr", () => {
+        expect(() => hexToRGB()).toThrow("hexStr is required");
+    });
+    test("throws error if hexStr is not a string", () => {
+        expect(() => hexToRGB(1234)).toThrow("hexStr must be a string");
+        expect(() => hexToRGB(true)).toThrow("hexStr must be a string");
+        expect(() => hexToRGB({})).toThrow("hexStr must be a string");
+        expect(() => hexToRGB([])).toThrow("hexStr must be a string");
+    });
+    test("throws error if not passed a hexStr of structure #000000", () => {
+        expect(() => hexToRGB("#zzzzzz")).toThrow("hexStr must be a valid hex colour code");
+        expect(() => hexToRGB("FF1133")).toThrow("hexStr must be a valid hex colour code");
+    });
+    test("returns valid rgb colour", () => {
+        expect(hexToRGB("#FF1133")).toBe("rgb(255,17,51)");
+    });
+});
